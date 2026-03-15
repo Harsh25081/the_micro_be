@@ -91,6 +91,12 @@ export function Header() {
             About
           </Link>
           <Link
+            href="/contact"
+            className="text-gray-700 hover:text-teal-600 transition"
+          >
+            Contact Us
+          </Link>
+          <Link
             href="https://crm.themicrobe.in/Account/SignIn.aspx?_gl=1*ajhyuh*_ga*ODU4NzQ0MTA1LjE3NzE3NTEwODQ.*_ga_D1ZZ1PRK9J*czE3NzE3NzIyNjIkbzQkZzEkdDE3NzE3NzY2MDYkajYwJGwwJGgw"
             target="_blank"
             className="text-gray-700 hover:text-teal-600 transition"
