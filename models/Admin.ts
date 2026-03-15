@@ -1,6 +1,6 @@
-import { DataTypes, Model } from 'sequelize';
-import database from '@/config/database';
-import bcrypt from 'bcrypt';
+import { DataTypes, Model } from "sequelize";
+import database from "@/config/database";
+import bcrypt from "bcryptjs";
 
 class Admin extends Model {
   public id!: string;
@@ -41,8 +41,8 @@ Admin.init(
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM('admin', 'manager', 'lab_technician'),
-      defaultValue: 'admin',
+      type: DataTypes.ENUM("admin", "manager", "lab_technician"),
+      defaultValue: "admin",
     },
     permissions: {
       type: DataTypes.JSON,
@@ -59,7 +59,7 @@ Admin.init(
   },
   {
     sequelize: database,
-    tableName: 'admins',
+    tableName: "admins",
     timestamps: true,
     hooks: {
       beforeCreate: async (admin) => {
@@ -68,12 +68,12 @@ Admin.init(
         }
       },
       beforeUpdate: async (admin) => {
-        if (admin.changed('passwordHash') && admin.passwordHash) {
+        if (admin.changed("passwordHash") && admin.passwordHash) {
           admin.passwordHash = await bcrypt.hash(admin.passwordHash, 10);
         }
       },
     },
-  }
+  },
 );
 
 export default Admin;

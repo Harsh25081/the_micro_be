@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Admin } from '@/models';
 import { adminLoginSchema } from '@/lib/validators';
 import { initializeDatabase } from '@/lib/db';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { createSession, setSessionCookie } from '@/lib/auth';
 
 export async function POST(request: NextRequest) {
