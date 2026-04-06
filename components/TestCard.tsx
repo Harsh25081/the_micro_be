@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Home, Clock, Droplet } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Home, Clock, Droplet } from "lucide-react";
 
 interface TestCardProps {
   id: string;
@@ -41,7 +41,9 @@ export function TestCard({
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <h3 className="text-lg font-semibold text-gray-900">{name}</h3>
-            <p className="text-sm text-gray-600 mt-1 line-clamp-2">{description}</p>
+            <p className="text-sm text-gray-600 mt-1 line-clamp-2">
+              {description}
+            </p>
           </div>
           {homeCollectionAvailable && (
             <Badge variant="secondary" className="ml-2 whitespace-nowrap">
@@ -54,7 +56,9 @@ export function TestCard({
         {/* Price Section */}
         <div className="border-t pt-4">
           <div className="flex items-center gap-2">
-            <span className="text-2xl font-bold text-teal-600">₹{price.toFixed(2)}</span>
+            <span className="text-2xl font-bold text-teal-600">
+              ₹{price.toFixed(2)}
+            </span>
             {hasDiscount && (
               <>
                 <span className="text-sm text-gray-500 line-through">
@@ -90,11 +94,17 @@ export function TestCard({
             Details
           </Button>
           <Button
+            disabled
+            className="bg-teal-600 hover:bg-teal-700 cursor-not-allowed"
+          >
+            Enquiry
+          </Button>
+          {/* <Button
             onClick={() => onAddToCart?.(id)}
             className="bg-teal-600 hover:bg-teal-700"
           >
             Add to Cart
-          </Button>
+          </Button> */}
         </div>
       </div>
     </Card>

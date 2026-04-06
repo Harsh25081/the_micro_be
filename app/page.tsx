@@ -18,7 +18,68 @@ import {
   Phone,
   Mail,
   Quote,
+  Microscope,
+  FlaskConical,
+  Dna,
+  TestTube,
+  Activity,
+  ShieldCheck,
+  ScanLine,
+  ClipboardList,
 } from "lucide-react";
+import { allTests } from "@/lib/tests";
+import Image from "next/image";
+
+const departments = [
+  {
+    icon: Activity,
+    title: "Hematology",
+    desc: "CBC, ESR, Hemoglobin, RBC/WBC/Platelets analysis",
+    color: "bg-teal-100 text-teal-600",
+  },
+  {
+    icon: FlaskConical,
+    title: "Biochemistry",
+    desc: "Blood sugar, liver, kidney function, lipid profile",
+    color: "bg-teal-100 text-teal-600",
+  },
+  {
+    icon: Microscope,
+    title: "Microbiology",
+    desc: "Bacteria, virus detection, culture & sensitivity",
+    color: "bg-teal-100 text-teal-600",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Serology / Immunology",
+    desc: "Antibody tests like HIV, dengue, COVID-19",
+    color: "bg-teal-100 text-teal-600",
+  },
+  {
+    icon: ScanLine,
+    title: "Histopathology",
+    desc: "Biopsy analysis & cancer diagnosis",
+    color: "bg-teal-100 text-teal-600",
+  },
+  {
+    icon: TestTube,
+    title: "Cytology",
+    desc: "Cell studies like Pap smear & FNAC",
+    color: "bg-teal-100 text-teal-600",
+  },
+  {
+    icon: ClipboardList, // ⚠️ need to import this too
+    title: "Clinical Pathology",
+    desc: "Routine urine, stool & body fluid tests",
+    color: "bg-teal-100 text-teal-600",
+  },
+  {
+    icon: Dna,
+    title: "Molecular Biology / PCR",
+    desc: "DNA/RNA testing & advanced RT-PCR",
+    color: "bg-teal-100 text-teal-600",
+  },
+];
 
 export default function HomePage() {
   return (
@@ -50,7 +111,7 @@ export default function HomePage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-teal-600 text-teal-600 hover:bg-teal-50 w-full sm:w-auto"
+                  className="border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white w-full sm:w-auto"
                 >
                   View Packages
                 </Button>
@@ -74,6 +135,22 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* NEW: Trusted By Section */}
+      <section className="bg-white border-b">
+        <div className="container mx-auto px-4 text-center">
+          {/* Image */}
+          <div className="relative w-full max-w-full mx-auto h-[250px] md:h-[300px]">
+            <Image
+              src="/companies.png"
+              alt="Trusted Companies"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Updated Popular Tests - KEPT */}
       <section className="py-20 bg-gray-100">
         <div className="container mx-auto px-4">
@@ -81,7 +158,7 @@ export default function HomePage() {
             Popular Health Tests
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
+            {/* [
               {
                 title: "Complete Blood Count",
                 desc: "Comprehensive blood analysis including RBC, WBC, platelets and more",
@@ -97,24 +174,25 @@ export default function HomePage() {
                 desc: "Cholesterol levels, triglycerides and heart health markers",
                 price: "₹399",
               },
-            ].map((test, index) => (
+            ] */}
+            {allTests.map((test, index) => (
               <Card key={index} className="p-8 hover:shadow-xl group">
                 <h3 className="text-2xl font-bold mb-4 text-gray-900">
-                  {test.title}
+                  {test.name}
                 </h3>
                 <p className="text-gray-600 mb-8 leading-relaxed">
-                  {test.desc}
+                  {test.description}
                 </p>
                 <div className="flex items-end justify-between">
                   <span className="text-4xl font-bold text-teal-600">
-                    {test.price}
+                    ₹{test.price}
                   </span>
-                  <Link href="/tests">
+                  <Link href={`/tests/${test.id}`}>
                     <Button
                       size="lg"
                       className="bg-teal-600 hover:bg-teal-700 shadow-lg px-8"
                     >
-                      Book Now
+                      View Details
                     </Button>
                   </Link>
                 </div>
@@ -274,33 +352,8 @@ export default function HomePage() {
               Comprehensive diagnostic services under one roof
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                icon: Stethoscope,
-                title: "Pathology",
-                color: "bg-teal-100 text-teal-600",
-                desc: "Complete blood analysis & biochemistry",
-              },
-              {
-                icon: Heart,
-                title: "Cardiology",
-                color: "bg-red-100 text-red-600",
-                desc: "Lipid profile & cardiac markers",
-              },
-              {
-                icon: Target,
-                title: "Endocrinology",
-                color: "bg-purple-100 text-purple-600",
-                desc: "Thyroid & diabetes panels",
-              },
-              {
-                icon: Shield,
-                title: "Microbiology",
-                color: "bg-green-100 text-green-600",
-                desc: "Infection detection & cultures",
-              },
-            ].map((dept, index) => (
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {departments.map((dept, index) => (
               <Card key={index} className="p-8 hover:shadow-xl group">
                 <div
                   className={`w-20 h-20 ${dept.color} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-105 transition-all`}
@@ -311,6 +364,26 @@ export default function HomePage() {
                   {dept.title}
                 </h3>
                 <p className="text-gray-600 text-center">{dept.desc}</p>
+              </Card>
+            ))}
+          </div> */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {departments.map((dept, index) => (
+              <Card
+                key={index}
+                className="p-6 hover:shadow-xl transition-all group border border-gray-100"
+              >
+                <div className="w-16 h-16 bg-teal-100 rounded-xl flex items-center justify-center mx-auto mb-5 group-hover:scale-105 transition">
+                  <dept.icon size={28} className="text-teal-600" />
+                </div>
+
+                <h3 className="text-xl font-bold mb-2 text-gray-900 text-center">
+                  {dept.title}
+                </h3>
+
+                <p className="text-gray-600 text-sm leading-relaxed text-center">
+                  {dept.desc}
+                </p>
               </Card>
             ))}
           </div>
@@ -458,7 +531,43 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* NEW 6: Testimonials */}
+      {/* NEW 6: Brand Image Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+            {/* Left Content */}
+            <div className="col-span-2">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-5">
+                Experience the Future of{" "}
+                <span className="text-teal-600">Diagnostics</span>
+              </h2>
+              <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                Advanced microbiology-driven diagnostics with precision, speed,
+                and reliability. Designed to give you clarity and confidence in
+                your health decisions.
+              </p>
+              <Link href="/tests">
+                <Button className="bg-teal-600 hover:bg-teal-700 px-8 py-6 text-lg">
+                  Explore Tests
+                </Button>
+              </Link>
+            </div>
+
+            {/* Right Image */}
+            <div className="relative w-full h-[300px] md:h-[400px] col-span-3">
+              <Image
+                src="/themicrobe_ranking.png" // 👈 put your image name here
+                alt="Diagnostics Illustration"
+                fill
+                className="object-cover rounded-2xl shadow-xl"
+                priority
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* NEW 7 Testimonials */}
       <section className="py-20 bg-gradient-to-b from-teal-600 to-blue-600 text-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -476,47 +585,105 @@ export default function HomePage() {
                   "Exceptional service! Home collection was on time and reports came in 24 hours. Highly recommended!",
                 name: "Priya S.",
                 rating: 5,
+                image: "/testimonials/testimonial1.jpg",
               },
               {
                 quote:
                   "NABL certified quality at affordable prices. My entire family uses HealthLab now.",
                 name: "Rajesh K.",
-                rating: 5,
+                rating: 4,
+                image: "/testimonials/testimonial2.jpg",
               },
               {
                 quote:
                   "Professional phlebotomist and accurate thyroid test results. Will use again!",
                 name: "Neha G.",
                 rating: 5,
+                image: "/testimonials/testimonial3.jpg",
               },
             ].map((testimonial, index) => (
               <Card
                 key={index}
-                className="p-8 bg-white/20 backdrop-blur-lg border-0 hover:bg-white/30 transition-all"
+                className="relative overflow-hidden p-8 border-0 rounded-2xl group"
               >
-                <div className="flex mb-6">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="h-6 w-6 text-yellow-300 fill-yellow-300"
-                    />
-                  ))}
-                </div>
-                <Quote className="h-10 w-10 text-white/70 mb-6 opacity-75" />
-                <p className="text-xl mb-6 italic leading-relaxed">
-                  "{testimonial.quote}"
-                </p>
-                <div className="text-right">
-                  <p className="font-bold text-lg">- {testimonial.name}</p>
+                {/* Background Image */}
+                <Image
+                  src={testimonial.image}
+                  alt={testimonial.name}
+                  fill
+                  className="object-cover"
+                />
+
+                {/* Dark Overlay (IMPORTANT for readability) */}
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all" />
+
+                {/* Content */}
+                <div className="relative z-10">
+                  <div className="flex mb-6">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="h-6 w-6 text-yellow-300 fill-yellow-300"
+                      />
+                    ))}
+                  </div>
+
+                  <Quote className="h-10 w-10 text-white/80 mb-6" />
+
+                  <p className="text-xl mb-6 italic leading-relaxed text-white">
+                    "{testimonial.quote}"
+                  </p>
+
+                  <div className="text-right">
+                    <p className="font-bold text-lg text-white">
+                      - {testimonial.name}
+                    </p>
+                  </div>
                 </div>
               </Card>
+              // <Card
+              //   key={index}
+              //   className="p-8 bg-white/20 backdrop-blur-lg border-0 hover:bg-white/30 transition-all"
+              // >
+              //   <div className="flex mb-6">
+              //     {[...Array(testimonial.rating)].map((_, i) => (
+              //       <Star
+              //         key={i}
+              //         className="h-6 w-6 text-yellow-300 fill-yellow-300"
+              //       />
+              //     ))}
+              //   </div>
+              //   <Quote className="h-10 w-10 text-white/70 mb-6 opacity-75" />
+              //   <p className="text-xl mb-6 italic leading-relaxed">
+              //     "{testimonial.quote}"
+              //   </p>
+              //   <div className="text-right">
+              //     <p className="font-bold text-lg">- {testimonial.name}</p>
+              //   </div>
+              // </Card>
             ))}
           </div>
         </div>
       </section>
 
+      {/* NEW: Why Us Full Width Section */}
+      <section className="w-full">
+        <div className="relative w-full h-[500px] md:h-[600px] lg:h-[700px]">
+          <Image
+            src="/why_us.png"
+            alt="Why Choose TheMicrobe"
+            fill
+            className="object-cover"
+            priority
+          />
+
+          {/* subtle overlay */}
+          <div className="absolute inset-0 bg-black/10" />
+        </div>
+      </section>
+
       {/* CTA Section - ENHANCED */}
-      <section className="bg-gray-100 py-20">
+      {/* <section className="bg-gray-100 py-20">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-5xl md:text-6xl font-bold mb-6">
@@ -543,197 +710,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }
-
-// import Link from "next/link";
-// import { Button } from "@/components/ui/button";
-// import { Card } from "@/components/ui/card";
-// import { ArrowRight, Home, Zap, Award, Clock } from "lucide-react";
-
-// export default function HomePage() {
-//   return (
-//     <div className="w-full">
-//       {/* Hero Section */}
-//       <section className="bg-gradient-to-r from-teal-50 to-blue-50 py-20">
-//         <div className="container mx-auto px-4">
-//           <div className="max-w-3xl mx-auto text-center">
-//             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-//               Your Health, Our Priority
-//             </h1>
-//             <p className="text-xl text-gray-600 mb-8">
-//               Get accurate health tests with home collection. Fast results,
-//               trusted diagnostics, and affordable packages.
-//             </p>
-//             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-//               <Link href="/tests">
-//                 <Button
-//                   size="lg"
-//                   className="bg-teal-600 hover:bg-teal-700 w-full sm:w-auto"
-//                 >
-//                   Browse Tests
-//                   <ArrowRight className="ml-2" size={20} />
-//                 </Button>
-//               </Link>
-//               <Link href="/packages">
-//                 <Button
-//                   size="lg"
-//                   variant="outline"
-//                   className="border-teal-600 text-teal-600 hover:bg-teal-50 w-full sm:w-auto"
-//                 >
-//                   View Packages
-//                 </Button>
-//               </Link>
-//             </div>
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* Features Section */}
-//       <section className="py-20 bg-white">
-//         <div className="container mx-auto px-4">
-//           <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">
-//             Why Choose The <span className="text-teal-600">Micro</span>be Labs?
-//           </h2>
-//           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-//             {/* Feature 1 */}
-//             <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-//               <div>
-//                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-teal-100 mb-4">
-//                   <Home size={32} className="text-teal-600" />
-//                 </div>
-//               </div>
-//               <h3 className="text-xl font-semibold mb-2 text-gray-900">
-//                 Home Collection
-//               </h3>
-//               <p className="text-gray-600">
-//                 Sample collection from the comfort of your home by trained
-//                 professionals.
-//               </p>
-//             </Card>
-
-//             {/* Feature 2 */}
-//             <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-//               <div>
-//                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 mb-4">
-//                   <Zap size={32} className="text-blue-600" />
-//                 </div>
-//               </div>
-//               <h3 className="text-xl font-semibold mb-2 text-gray-900">
-//                 Fast Results
-//               </h3>
-//               <p className="text-gray-600">
-//                 Get accurate results within 24-48 hours with detailed reports
-//                 online.
-//               </p>
-//             </Card>
-
-//             {/* Feature 3 */}
-//             <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-//               <div>
-//                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
-//                   <Award size={32} className="text-green-600" />
-//                 </div>
-//               </div>
-//               <h3 className="text-xl font-semibold mb-2 text-gray-900">
-//                 Certified Labs
-//               </h3>
-//               <p className="text-gray-600">
-//                 NABL certified laboratories ensuring highest quality and
-//                 accuracy.
-//               </p>
-//             </Card>
-
-//             {/* Feature 4 */}
-//             <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-//               <div>
-//                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-purple-100 mb-4">
-//                   <Clock size={32} className="text-purple-600" />
-//                 </div>
-//               </div>
-//               <h3 className="text-xl font-semibold mb-2 text-gray-900">
-//                 24/7 Support
-//               </h3>
-//               <p className="text-gray-600">
-//                 Round-the-clock customer support to answer all your health
-//                 questions.
-//               </p>
-//             </Card>
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* Popular Tests Section */}
-//       <section className="py-20 bg-gray-50">
-//         <div className="container mx-auto px-4">
-//           <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">
-//             Popular Health Tests
-//           </h2>
-//           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-//             {[
-//               {
-//                 title: "Complete Blood Count",
-//                 description:
-//                   "Comprehensive blood analysis including RBC, WBC, platelets and more",
-//                 price: "₹299",
-//               },
-//               {
-//                 title: "Thyroid Profile",
-//                 description:
-//                   "TSH, T3, T4 tests to check thyroid function and health",
-//                 price: "₹599",
-//               },
-//               {
-//                 title: "Lipid Profile",
-//                 description:
-//                   "Cholesterol levels, triglycerides and heart health markers",
-//                 price: "₹399",
-//               },
-//             ].map((test, index) => (
-//               <Card
-//                 key={index}
-//                 className="p-6 hover:shadow-lg transition-shadow"
-//               >
-//                 <h3 className="text-xl font-semibold mb-3 text-gray-900">
-//                   {test.title}
-//                 </h3>
-//                 <p className="text-gray-600 mb-4">{test.description}</p>
-//                 <div className="flex items-center justify-between">
-//                   <span className="text-2xl font-bold text-teal-600">
-//                     {test.price}
-//                   </span>
-//                   <Link href="/tests">
-//                     <Button size="sm" className="bg-teal-600 hover:bg-teal-700">
-//                       Book Now
-//                     </Button>
-//                   </Link>
-//                 </div>
-//               </Card>
-//             ))}
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* CTA Section */}
-//       <section className="bg-teal-600 text-white py-16">
-//         <div className="container mx-auto px-4 text-center">
-//           <h2 className="text-4xl font-bold mb-4">Ready to Get Tested?</h2>
-//           <p className="text-xl mb-8 opacity-90">
-//             Book your health test today and get results delivered to your home.
-//           </p>
-//           <Link href="/tests">
-//             <Button
-//               size="lg"
-//               className="bg-white text-teal-600 hover:bg-gray-100"
-//             >
-//               Start Booking
-//               <ArrowRight className="ml-2" size={20} />
-//             </Button>
-//           </Link>
-//         </div>
-//       </section>
-//     </div>
-//   );
-// }
