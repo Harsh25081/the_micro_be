@@ -668,7 +668,7 @@ export default function HomePage() {
 
       {/* NEW: Why Us Full Width Section */}
       <section className="w-full">
-        <div className="relative w-full h-[500px] md:h-[600px] lg:h-[700px]">
+        <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px]">
           <Image
             src="/why_us.png"
             alt="Why Choose TheMicrobe"
